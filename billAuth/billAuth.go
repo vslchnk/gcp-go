@@ -17,6 +17,8 @@ func main() {
 		ClientID:     "",
 		ClientSecret: "",
 		Scopes:       []string{"https://www.googleapis.com/auth/cloud-billing"},
+		Endpoint:     google.Endpoint,
+		RedirectURL:  "",
 	}
 
 	url := conf.AuthCodeURL("state", oauth2.AccessTypeOffline)
