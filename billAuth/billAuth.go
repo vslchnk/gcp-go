@@ -6,11 +6,11 @@ import (
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/google"
 	b "google.golang.org/api/cloudbilling/v1"
 )
 
 func main() {
-	// Use oauth2.NoContext if there isn't a good context to pass in.
 	ctx := context.Background()
 
 	conf := &oauth2.Config{
@@ -18,7 +18,7 @@ func main() {
 		ClientSecret: "",
 		Scopes:       []string{"https://www.googleapis.com/auth/cloud-billing"},
 		Endpoint:     google.Endpoint,
-		RedirectURL:  "",
+		RedirectURL:  "urn:ietf:wg:oauth:2.0:oob",
 	}
 
 	url := conf.AuthCodeURL("state", oauth2.AccessTypeOffline)
@@ -49,5 +49,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(l)
+	for i := 0; i < len(l.ProjectBillingInfo); i++ {
+		fmt.Println("info: ", l.ProjectBillingInfo[i])
+	}
 }
